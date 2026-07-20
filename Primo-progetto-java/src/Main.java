@@ -6,9 +6,193 @@ public String qta1;
 
 void main() {
 
+//  esempi1();
+
+    //array
+    //1a definizione
+    int[] numeri = new int[3];
+    numeri[0] = 9;
+    numeri[1] = 4;
+    numeri[2] = 2;
+
+    //2a definizione
+
+    Integer[] num = {1,2,3};
+
+    System.out.printf("il secondo numero e' %d \n", num[1]);
+
+    IO.println("num = " + num[1]);
+
+    for (int n = 0; n < numeri.length; n++) {
+        IO.println("numeri = " + numeri[n]);
+    }
+
+    for (int y = 0; y < num.length; y++) {
+        IO.println("num= " + num[y]);
+    }
+
+    String[] nomi = {"Fabio", "Marco", "Simone"};
+
+    //foreach in java come scrivere $nomi as $nome
+    for(String nome : nomi){
+        IO.println("Nome: " + nome);
+    }
+    int y = 0;
+    while (y < num.length){
+
+
+        y++;
+    }
+
+    do{
+        //fai qualcosa che 1a volta sempre
+        y++;
+    } while(y < num.length);
+
+    //arraylist
+    ArrayList<String> spesa = new ArrayList<>();
+    spesa.add("Pane");
+    spesa.add("Burro");
+    spesa.add("Latte");
+    //add => aggiungi
+    //remove => rimuovi spesa.remove()
+    /*spesa.remove("Latte");
+    spesa.set(1, "Marmellata");
+    spesa.clear();*/
+    spesa.forEach(item -> System.out.println("Comprare: " + item));
+
+    List<String> persone = new ArrayList<>();
+
+    List<String> frutti = new List<String>() {
+        @Override
+        public int size() {
+            return 0;
+        }
+
+        @Override
+        public boolean isEmpty() {
+            return false;
+        }
+
+        @Override
+        public boolean contains(Object o) {
+            return false;
+        }
+
+        @Override
+        public Iterator<String> iterator() {
+            return null;
+        }
+
+        @Override
+        public Object[] toArray() {
+            return new Object[0];
+        }
+
+        @Override
+        public <T> T[] toArray(T[] a) {
+            return null;
+        }
+
+        @Override
+        public boolean add(String s) {
+            return false;
+        }
+
+        @Override
+        public boolean remove(Object o) {
+            return false;
+        }
+
+        @Override
+        public boolean containsAll(Collection<?> c) {
+            return false;
+        }
+
+        @Override
+        public boolean addAll(Collection<? extends String> c) {
+            return false;
+        }
+
+        @Override
+        public boolean addAll(int index, Collection<? extends String> c) {
+            return false;
+        }
+
+        @Override
+        public boolean removeAll(Collection<?> c) {
+            return false;
+        }
+
+        @Override
+        public boolean retainAll(Collection<?> c) {
+            return false;
+        }
+
+        @Override
+        public void clear() {
+
+        }
+
+        @Override
+        public String get(int index) {
+            return "";
+        }
+
+        @Override
+        public String set(int index, String element) {
+            return "";
+        }
+
+        @Override
+        public void add(int index, String element) {
+
+        }
+
+        @Override
+        public String remove(int index) {
+            return "";
+        }
+
+        @Override
+        public int indexOf(Object o) {
+            return 0;
+        }
+
+        @Override
+        public int lastIndexOf(Object o) {
+            return 0;
+        }
+
+        @Override
+        public ListIterator<String> listIterator() {
+            return null;
+        }
+
+        @Override
+        public ListIterator<String> listIterator(int index) {
+            return null;
+        }
+
+        @Override
+        public List<String> subList(int fromIndex, int toIndex) {
+            return List.of();
+        }
+    };
+}
+
+String prova(int valore, String pippo, Boolean ePieno){
+
+
+
+    return "0";
+}
+
+void esempi1(){
+
     Scanner scan = new Scanner(System.in);
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
+//    TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
+//     to see how IntelliJ IDEA suggests fixing it.
     IO.println(String.format("Hello and welcome!"));
 
     System.out.print("Hello Word\n");
@@ -64,11 +248,4 @@ void main() {
 
     qta1 = prova(qta, indirizzo, ePieno);
 
-}
-
-String prova(int valore, String pippo, Boolean ePieno){
-
-
-
-    return "0";
 }

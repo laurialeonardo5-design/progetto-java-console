@@ -60,6 +60,18 @@ class Prestito{
         this.dataRestituzione = dataRestituzione;
         this.idUtente = idUtente;
     }
+    public String getNomeUtente(){
+        return nomeUtente;
+    }
+    public LocalDate getdataPrestito(){
+        return dataPrestito;
+    }
+    public LocalDate getdataRestituzione(){
+        return dataRestituzione;
+    }
+    public int  getidUtente(){
+        return idUtente;
+    }
 
 }
 class LibroNonDisponibile extends Prestito{

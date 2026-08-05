@@ -1,6 +1,8 @@
+[
  {
     "idUtente" : 1,
-    "untente" : "fabio",
-    "dataPrestito" : "04-08-2026",
-    "dataRestituzione" : "04-12-2026"
+    "nomeUtente" : "fabio",
+    "dataPrestito" : "2026-08-04",
+    "dataRestituzione" : "2026-12-04"
   }
+]

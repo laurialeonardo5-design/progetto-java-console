@@ -3,7 +3,11 @@
 import java.util.Scanner;
 import java.io.FileReader;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.reflect.TypeToken;
+import org.flywaydb.core.Flyway;
+import org.flywaydb.database.mysql.*;
 
 public String qta1;
 public Scanner scan;
@@ -316,34 +320,71 @@ public Scanner scan;
 // }
 
 
+private static final String UTENTE = "root";
+private static final String PWD = "root";
+
 void main() {
+
+    System.out.println("------DATI JSON-------");
 
     Gson gson;
     Libro libro;
     Prestito prestito;
 
     try{
-        gson = new Gson();
+        //gson = new Gson();
+        //DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter fmt = DateTimeFormatter.ISO_LOCAL_DATE;
+
+        // 1. Gson costruito con l'adapter per LocalDate
+        gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDate.class,
+                        (JsonDeserializer<LocalDate>) (json, tipo, ctx) ->
+                                LocalDate.parse(json.getAsString(), fmt))
+                .create();
 
         String pathDir = "C:\\Users\\leon1\\IdeaProjects\\Primo-progetto-java\\src\\";
 
         FileReader readerLibro = new FileReader(pathDir + "libri.json");
+        FileReader readerPrestito = new FileReader(pathDir + "prestiti.json");
         //libro = gson.fromJson(readerLibro, Libro.class);
-        prestito = gson.fromJson(new FileReader(pathDir + "prestiti.json"),Prestito.class);
+        //prestito = gson.fromJson(new FileReader(pathDir + "prestiti.json"),Prestito.class);
 
-        Type tipoLista = new com.google.gson.reflect.TypeToken<ArrayList<Libro>>(){}.getType();
+        Type tipoListaLibro = new TypeToken<ArrayList<Libro>>(){}.getType();
+        Type tipoListaPrestito = new TypeToken<ArrayList<Prestito>>(){}.getType();
 
-        List<Libro> libri = gson.fromJson(readerLibro, tipoLista);
+        List<Libro> libri = gson.fromJson(readerLibro, tipoListaLibro);
+        List<Prestito> prestiti = gson.fromJson(readerPrestito, tipoListaPrestito);
 
         System.out.println("numero libri: " + libri.size());
 
+
         for(Libro itemLibro : libri){
-            System.out.println(itemLibro);
+            System.out.println("titolo: " + itemLibro.getTitolo());
+        }
+
+        System.out.println("numero prestiti: " + prestiti.size());
+
+        for(Prestito itemPrestito : prestiti){
+            System.out.println("nome utente : " + itemPrestito.getNomeUtente());
         }
     }
     catch(FileNotFoundException ex){
         System.out.println(ex.getMessage().toString());
     }
+
+    System.out.println("------DATI MYSQL-------");
+
+
+    Flyway flyway = Flyway.configure()
+            .dataSource(
+                    "jdbc:mysql://localhost:3306/libri?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true",
+                    UTENTE,
+                    PWD)
+            .load();
+
+    flyway.migrate(); // applica tutte le migrazioni non ancora eseguite
+
 
 
 

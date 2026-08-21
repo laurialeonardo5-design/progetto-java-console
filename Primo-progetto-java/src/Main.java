@@ -375,16 +375,27 @@ void main() {
 
     System.out.println("------DATI MYSQL-------");
 
+    System.out.println(Thread.currentThread().getContextClassLoader().getResource("db/migration"));
 
     Flyway flyway = Flyway.configure()
             .dataSource(
-                    "jdbc:mysql://localhost:3306/libri?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true",
+                    "jdbc:mysql://localhost:3306/libri?useSSL=true&serverTimezone=UTC&allowPublicKeyRetrieval=true",
                     UTENTE,
                     PWD)
+            .locations("filesystem:src/db/migrations") // Il nome della tabella va messo con lettera maiuscola e __
+            .baselineOnMigrate(true)
             .load();
 
-    flyway.migrate(); // applica tutte le migrazioni non ancora eseguite
+            //.validateMigrationNaming(true)      se file corretti nel nome, commentarlo
 
+    try {
+        flyway.migrate(); // applica tutte le migrazioni non ancora eseguite
+    }
+    catch(Exception ex){
+        System.out.println("Errore 390: " + ex.getMessage().toString());
+        flyway.repair();
+        flyway.migrate();
+    }
 
 
 
